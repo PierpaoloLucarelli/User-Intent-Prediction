@@ -1,6 +1,6 @@
 from features import content
 
-datafile = "./data/train.tsv"
+datafile = "./data/test.tsv"
 
 
 labels = []
@@ -20,7 +20,7 @@ with open(datafile) as utterances:
 
 
 			# write features to file
-			with open("./data/features.csv", "a") as fout:
+			with open("./data/testfeats.csv", "a") as fout:
 				for i, utterance in enumerate(text):
 
 					# label
