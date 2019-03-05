@@ -3,13 +3,12 @@ import math
 from sklearn.feature_selection import chi2
 
 
-datafile = "../data/train.tsv"
 corpus = []
 positions = []
 labels = []
 cosines = []
 
-def save_tfidf():
+def save_tfidf(datafile):
     with open(datafile) as conversations:
         i = 0
         j = 0
