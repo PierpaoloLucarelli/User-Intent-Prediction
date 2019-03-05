@@ -30,6 +30,7 @@ with open(testfile) as features:
 
 
 
+
 clf = svm.SVC(gamma='scale')
 clf.fit(Xtrain, Ytrain)
 predicted = clf.predict(Xtest)
