@@ -12,8 +12,11 @@ with open(datafile) as utterances:
 			tokens = line.strip().split('\t')
 			labels.append(tokens[0])
 			text.append(tokens[1])
+			#tf-idf for text
+
 		else:
-			# reached the end of the utterance, can extract the features now
+			# reached the end of the conversation, can extract the features now
+			
 			qm = content.count_qs(text)
 			wh = content.W5H1(text)
 			thanks = content.thanks(text)
