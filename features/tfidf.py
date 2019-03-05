@@ -7,11 +7,13 @@ corpus = []
 positions = []
 labels = []
 cosines = []
+full_texts = {}
 
 def save_tfidf(datafile):
     with open(datafile) as conversations:
         i = 0
         j = 0
+		full = ''
         for line in conversations:
             if line != '\n':
                 tokens = line.strip().split('\t')
@@ -19,17 +21,22 @@ def save_tfidf(datafile):
                 labels.append(tokens[0])
                 positions.append(i)
                 j = j + 1
+				full_text = full_text + " " + tokens[1]
             else:
+				full_texts[i] = full_text
                 i = i + j
                 j = 0
 
     vectorizer = TfidfVectorizer(norm='l2',min_df=0, use_idf=True, stop_words='english')
     X = vectorizer.fit_transform(corpus).toarray()
+
     for count, utterance in enumerate(X):
         initial_document_pos = positions[count]
         initial_utterance = X[initial_document_pos]
         cos_sim = cosine_similarity(utterance,initial_utterance)
         cosines.append(cos_sim)
+
+	
     return cosines
 
 def cosine_similarity(vector1, vector2):
