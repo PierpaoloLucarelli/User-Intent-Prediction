@@ -1,5 +1,7 @@
 # returns the number of questions marks in utterance
 from __future__ import division
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from sklearn.feature_extraction.text import CountVectorizer
 
 def count_qs(utterances):
 	n = [];
@@ -57,4 +59,27 @@ def isUser(userTypes):
 		else:
 			responses.append(0)
 	return responses
+
+def vaderSentiment(utterances):
+	sentiments = []
+	analyzer = SentimentIntensityAnalyzer()
+	for utterance in utterances:
+		sent = analyzer.polarity_scores(utterance)
+		s = {
+			"pos": round(sent["pos"], 2),
+			"neu": round(sent["neu"], 2),
+			"neg": round(sent["neg"], 2),
+		}
+		sentiments.append(s)
+	return sentiments
+
+# def numberOfWords(utterances):
+# 	lengths = []
+# 	vectorizer = CountVectorizer()
+
+# 	for utterance in utterances:
+# 		words = vectorizer.fit_transform([utterances])
+# 		print(len(words))
+
+
 
