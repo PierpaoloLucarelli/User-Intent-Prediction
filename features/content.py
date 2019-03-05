@@ -99,4 +99,25 @@ def numberOfWords(utterances):
 		lengths.append(len(filtered_sentence))
 	return lengths
 
+def numberOfUniqueWords(utterances):
+	lengths = []
+	stop_words = set(stopwords.words('english')) 
+	for utterance in utterances:
+		word_tokens = word_tokenize(utterance) 
+		filtered_sentence = [w for w in word_tokens if not w in stop_words] 
+		lengths.append(len(set(filtered_sentence)))
+	return lengths
+
+
+def exclam_mark(utterances):
+	n = [];
+	for u in utterances:
+		if u.find('!') != -1:
+			n.append(1)
+		else:
+			n.append(0)
+	return n
+
+
+
 

@@ -8,9 +8,9 @@ import pickle
 def cosine_similarity(vector1, vector2):
     sim = np.dot(vector1, vector2) / (np.linalg.norm(vector1) * np.linalg.norm(vector2))
     if type(sim) == np.ndarray:
-        return sim[0]
+        return round(sim[0], 3)
     else:
-        return sim
+        return round(sim, 3)
 
 
 
@@ -41,21 +41,21 @@ def create_vectorizer(datafile,savename):
     
     vectorizer = TfidfVectorizer(norm='l2',min_df=0, use_idf=True, stop_words='english')
     X = vectorizer.fit_transform(corpus).toarray()
-    with open('X.pkl','wb') as f:
+    with open(savename + 'X.pkl','wb') as f:
         pickle.dump(X, f)
-    with open('vectorizer.pkl','wb') as f:
+    with open(savename + 'vectorizer.pkl','wb') as f:
         pickle.dump(vectorizer, f)
-    with open('positions.pkl','wb') as f:
+    with open(savename + 'positions.pkl','wb') as f:
         pickle.dump(positions, f)
-    with open('full_texts.pkl','wb') as f:
+    with open(savename +'full_texts.pkl','wb') as f:
         pickle.dump(full_texts, f)
 
 
-def calculate_similarities_init():
+def calculate_similarities_init(name):
     cosines_initial = []
-    with open('X.pkl','rb') as f:
+    with open(name+'X.pkl','rb') as f:
         X = pickle.load(f)
-    with open('positions.pkl','rb') as f:
+    with open(name+'positions.pkl','rb') as f:
         positions = pickle.load(f)
     for count, utterance in enumerate(X):
         initial_document_pos = positions[count]
@@ -66,15 +66,15 @@ def calculate_similarities_init():
 
 
 
-def calculate_similarities_dialog():
+def calculate_similarities_dialog(name):
     cosines_entire = []
-    with open('vectorizer.pkl','rb') as f:
+    with open(name+'vectorizer.pkl','rb') as f:
         vectorizer = pickle.load(f)
-    with open('X.pkl','rb') as f:
+    with open(name+'X.pkl','rb') as f:
         X = pickle.load(f)
-    with open('full_texts.pkl','rb') as f:
+    with open(name+'full_texts.pkl','rb') as f:
         full_texts = pickle.load(f)
-    with open('positions.pkl','rb') as f:
+    with open(name+'positions.pkl','rb') as f:
         positions = pickle.load(f)
     for count, utterance in enumerate(X):
         i = positions[count]

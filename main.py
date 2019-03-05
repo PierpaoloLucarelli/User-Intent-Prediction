@@ -14,8 +14,10 @@ user_types = []
 for i, f in enumerate(datafiles):
 	k = 0
 	with open(datafiles[i]+'.pkl','rb') as f:
-		TFIDF = pickle.load(f)
-		# TFIDF = tfidf.save_tfidf("./data/"+datafiles[i]+".tsv", datafiles[i])
+		# TFIDF = pickle.load(f)
+		# tfidf.create_vectorizer('data/'+datafiles[i]+'.tsv', datafiles[i])
+		tfidf_init = tfidf.calculate_similarities_init(datafiles[i])
+		tfidf_dialog = tfidf.calculate_similarities_dialog(datafiles[i])
 		with open("./data/"+datafiles[i]+".tsv") as conversations:
 			if os.path.exists("./data/"+datafiles[i]+"_feat.csv"):
 				os.remove("./data/"+datafiles[i]+"_feat.csv")
@@ -36,8 +38,10 @@ for i, f in enumerate(datafiles):
 					pos = content.abs_position(utterances)
 					norm_pos = content.norm_position(utterances)
 					isUser = content.isUser(user_types)
+					ex = content.exclam_mark(utterances)
 					sentiments = content.vaderSentiment(utterances)
 					n_words = content.numberOfWords(utterances)
+					unique_words = content.numberOfUniqueWords(utterances)
 
 
 					# write features to file
@@ -59,8 +63,11 @@ for i, f in enumerate(datafiles):
 								", ".join(wh[i]) + ", " +
 								", ".join(dups[i]) + ", " +
 								str(thanks[i]) + ", " + 
-								str(TFIDF[k]) + ", " +
-								str(n_words[i]) + 
+								str(n_words[i]) + ", " +
+								str(unique_words[i]) + ", " +
+								str(tfidf_init[k]) + ", " +
+								str(tfidf_dialog[k]) + ", " +
+								str(ex[i]) + 
 								# str(sentiments[i]["pos"]) + 
 								"\n"
 							)
