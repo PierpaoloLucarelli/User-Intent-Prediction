@@ -49,3 +49,12 @@ def norm_position(utterances):
 		pos[i] = round(i / len(utterances), 2)
 	return pos	
 
+def isUser(userTypes):
+	responses = []
+	for i, t in enumerate(userTypes):
+		if(userTypes[i] == "User"):
+			responses.append(1)
+		else:
+			responses.append(0)
+	return responses
+
