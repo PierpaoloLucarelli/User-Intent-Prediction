@@ -1,5 +1,6 @@
 venv/
 venv3/
 data/
+*.pkl
 *.pyc
 .DS_Store
