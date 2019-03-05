@@ -42,16 +42,12 @@ for i, f in enumerate(datafiles):
 					sentiments = content.vaderSentiment(utterances)
 					n_words = content.numberOfWords(utterances)
 					unique_words = content.numberOfUniqueWords(utterances)
+					feedback = content.feedback(utterances)
 
 
 					# write features to file
 					with open("./data/"+datafiles[i]+"_feat.csv", "a") as fout:
 						for j, u in enumerate(utterances):
-
-							# label
-							# question mark
-							# 5W1H
-							# thanks
 							fout.write(
 								labels[j] + ", " +
 								str(pos[j]) + ", " +
@@ -59,6 +55,7 @@ for i, f in enumerate(datafiles):
 								str(isUser[j])  + ", " + 
 								str(sentiments[i]["neu"]) + ", " + 
 								str(sentiments[i]["pos"]) + ", " + 
+								# str(sentiments[i]["neg"]) + ", " +
 								str(qm[i]) + ", " + 
 								", ".join(wh[i]) + ", " +
 								", ".join(dups[i]) + ", " +
@@ -67,8 +64,8 @@ for i, f in enumerate(datafiles):
 								str(unique_words[i]) + ", " +
 								str(tfidf_init[k]) + ", " +
 								str(tfidf_dialog[k]) + ", " +
+								", ".join(feedback[i]) + ", " +
 								str(ex[i]) + 
-								# str(sentiments[i]["pos"]) + 
 								"\n"
 							)
 							k = k + 1

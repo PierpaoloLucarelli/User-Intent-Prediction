@@ -118,6 +118,15 @@ def exclam_mark(utterances):
 			n.append(0)
 	return n
 
+def feedback(utterances):
+	res = []
+	for utterance in utterances:
+		wh_vector = [0] * 2
 
+		wh_vector[0] = 1 if utterance.find('did not') or utterance.find('didn\'t') != -1 else 0
+		wh_vector[1] = 1 if utterance.find('does not') or utterance.find('doesn\'t') != -1 else 0
+
+		res.append(list(map(str, wh_vector)))
+	return res
 
 
