@@ -2,15 +2,23 @@ from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.linear_model import LogisticRegression
+from sklearn import preprocessing
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import AdaBoostClassifier
 
-trainfile = "./data/train_feat.csv"
+# trainfile = "./data/train_feat.csv"
+# testfile = "./data/test_feat.csv"
+
 testfile = "./data/test_feat.csv"
+trainfile = "./data/train_feat.csv"
 
 Xtrain = []
 Ytrain = []
 
 Xtest = []
 Ytest = []
+
+le = preprocessing.LabelEncoder()
 
 with open(trainfile) as features:
 	for line in features:
@@ -29,6 +37,10 @@ with open(testfile) as features:
 			Xtest.append(tk)
 
 
+# le.fit(Ytrain)
+# Ytrain = list(le.transform(Ytrain))
+# # Ytest = list(le.transform(Ytest))
+# print(Ytest)
 
 
 clf = svm.SVC(gamma='scale')
@@ -46,6 +58,13 @@ clf3 = LogisticRegression(random_state=0, solver='lbfgs', multi_class='multinomi
 clf3.fit(Xtrain, Ytrain)
 predicted3 = clf3.predict(Xtest)
 print("Logistic regression: Fraction of correct predictions: " + str(accuracy_score(Ytest, predicted3)))
+
+
+clf4 = AdaBoostClassifier(n_estimators=50, learning_rate=1)
+clf4.fit(Xtrain, Ytrain)
+predicted4 = clf4.predict(Xtest)
+print("AdaBoost: Fraction of correct predictions: " + str(accuracy_score(Ytest, predicted4)))
+
 
 
 

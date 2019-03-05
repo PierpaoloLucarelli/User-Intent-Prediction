@@ -31,12 +31,13 @@ for i, f in enumerate(datafiles):
 					# reached the end of the conversation, can extract the features now
 					qm = content.count_qs(utterances)
 					wh = content.W5H1(utterances)
+					dups = content.duplicates(utterances)
 					thanks = content.thanks(utterances)
 					pos = content.abs_position(utterances)
 					norm_pos = content.norm_position(utterances)
 					isUser = content.isUser(user_types)
 					sentiments = content.vaderSentiment(utterances)
-					# words = content.numberOfWords(utterances)
+					n_words = content.numberOfWords(utterances)
 
 
 					# write features to file
@@ -56,8 +57,10 @@ for i, f in enumerate(datafiles):
 								str(sentiments[i]["pos"]) + ", " + 
 								str(qm[i]) + ", " + 
 								", ".join(wh[i]) + ", " +
+								", ".join(dups[i]) + ", " +
 								str(thanks[i]) + ", " + 
-								str(TFIDF[k]) + 
+								str(TFIDF[k]) + ", " +
+								str(n_words[i]) + 
 								# str(sentiments[i]["pos"]) + 
 								"\n"
 							)

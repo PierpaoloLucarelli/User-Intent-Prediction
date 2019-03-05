@@ -3,6 +3,12 @@ from __future__ import division
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from sklearn.feature_extraction.text import CountVectorizer
 
+from nltk.corpus import stopwords 
+from nltk.tokenize import word_tokenize 
+import nltk
+nltk.download('stopwords')
+nltk.download('punkt')
+
 def count_qs(utterances):
 	n = [];
 	for u in utterances:
@@ -14,21 +20,21 @@ def count_qs(utterances):
 
 
 def W5H1(utterances):
-    # how, what, why, who, where, when
-    res = []
-    for utterance in utterances:
-        wh_vector = [0] * 6
+	# how, what, why, who, where, when
+	res = []
+	for utterance in utterances:
+		wh_vector = [0] * 6
 
-        wh_vector[0] = 1 if utterance.find('how') != -1 else 0
-        wh_vector[1] = 1 if utterance.find('what') != -1 else 0
-        wh_vector[2] = 1 if utterance.find('why') != -1 else 0
-        wh_vector[3] = 1 if utterance.find('who') != -1 else 0
-        wh_vector[4] = 1 if utterance.find('where') != -1 else 0
-        wh_vector[5] = 1 if utterance.find('when') != -1 else 0
+		wh_vector[0] = 1 if utterance.find('how') != -1 else 0
+		wh_vector[1] = 1 if utterance.find('what') != -1 else 0
+		wh_vector[2] = 1 if utterance.find('why') != -1 else 0
+		wh_vector[3] = 1 if utterance.find('who') != -1 else 0
+		wh_vector[4] = 1 if utterance.find('where') != -1 else 0
+		wh_vector[5] = 1 if utterance.find('when') != -1 else 0
 
 
-        res.append(list(map(str, wh_vector)))
-    return res
+		res.append(list(map(str, wh_vector)))
+	return res
 
 def thanks(utterances):
 	n = [];
@@ -73,13 +79,24 @@ def vaderSentiment(utterances):
 		sentiments.append(s)
 	return sentiments
 
-# def numberOfWords(utterances):
-# 	lengths = []
-# 	vectorizer = CountVectorizer()
+def duplicates(utterances):
+	# how, what, why, who, where, when
+	res = []
+	for utterance in utterances:
+		wh_vector = [0] * 2
 
-# 	for utterance in utterances:
-# 		words = vectorizer.fit_transform([utterances])
-# 		print(len(words))
+		wh_vector[0] = 1 if utterance.find('same') != -1 else 0
+		wh_vector[1] = 1 if utterance.find('similar') != -1 else 0
+		res.append(list(map(str, wh_vector)))
+	return res
 
+def numberOfWords(utterances):
+	lengths = []
+	stop_words = set(stopwords.words('english')) 
+	for utterance in utterances:
+		word_tokens = word_tokenize(utterance) 
+		filtered_sentence = [w for w in word_tokens if not w in stop_words] 
+		lengths.append(len(filtered_sentence))
+	return lengths
 
 
