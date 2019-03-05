@@ -4,40 +4,42 @@ datafile = "./data/train.tsv"
 
 
 labels = []
-text = []
+utterances = []
 
-with open(datafile) as utterances:
-	for line in utterances:
+with open(datafile) as conversations:
+	for line in conversations:
 		if line != '\n':
 			tokens = line.strip().split('\t')
 			labels.append(tokens[0])
-			text.append(tokens[1])
+			utterances.append(tokens[1])
 		else:
-			# reached the end of the utterance, can extract the features now
-			qm = content.count_qs(text)
-			wh = content.W5H1(text)
-			thanks = content.thanks(text)
+			# reached the end of the conversation, can extract the features now
+			# qm = content.count_qs(text)
+			# wh = content.W5H1(text)
+			# thanks = content.thanks(text)
+			pos = content.abs_position(utterances)
+			norm_pos = content.norm_position(utterances)
+
 
 
 			# write features to file
 			with open("./data/features.csv", "a") as fout:
-				for i, utterance in enumerate(text):
+				for i, u in enumerate(utterances):
 
 					# label
 					# question mark
 					# 5W1H
 					# thanks
 					fout.write(
-							labels[i] + ", " +
-							str(qm[i]) + ", " +
-							", ".join(wh[i]) + ", " +
-							str(thanks[i]) + 
-							"\n"
-						)
+						labels[i] + ", " +
+						str(pos[i]) + ", " +
+						str(norm_pos[i]) + 
+						"\n"
+					)
 
 			# reset
 			labels = []
-			text = []
+			utterances = []
 
 
 		

@@ -1,4 +1,6 @@
 # returns the number of questions marks in utterance
+from __future__ import division
+
 def count_qs(utterances):
 	n = [];
 	for u in utterances:
@@ -34,3 +36,16 @@ def thanks(utterances):
 		else:
 			n.append(0)
 	return n
+
+def abs_position(utterances):
+	pos = [0]*len(utterances)
+	for i, utterance in enumerate(utterances):
+		pos[i] = i
+	return pos
+
+def norm_position(utterances):
+	pos = [0]*len(utterances)
+	for i, utterance in enumerate(utterances):
+		pos[i] = round(i / len(utterances), 2)
+	return pos	
+
