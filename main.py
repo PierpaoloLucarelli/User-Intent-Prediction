@@ -1,4 +1,5 @@
 from features import content
+from features import tfidf
 import os
 
 datafiles = ["train", "test"]
@@ -8,6 +9,8 @@ datafiles = ["train", "test"]
 labels = []
 utterances = []
 user_types = []
+
+save_tfidf
 
 for i, f in enumerate(datafiles):
 	with open("./data/"+datafiles[i]+".tsv") as conversations:
