@@ -4,7 +4,6 @@ from sklearn.svm import SVC
 from matplotlib.ticker import MultipleLocator
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
-from sklearn.metrics import multilabel_confusion_matrix
 from sklearn.metrics import precision_score
 from features import helper
 from sklearn.metrics import classification_report
@@ -107,20 +106,20 @@ print("Precision: \n" + str(precision_score(Ytest, predicted, average=None)))
 print("Confusion matrix: \n" + str(confusion_matrix(Ytest, predicted)))
 # helper.plot_confusion_matrix(Ytest, predicted, classes=helper.getLabelList(), title='Confusion matrix for SVM')
 labels = ["OQ","FD","PA","FD_FQ","FD_RQ","FD_PA","JK","NF","CQ_IR","FD_IR_PA","GG","FD_PF","PF","FQ","FD_OQ","FD_NF","CQ","RQ","CQ_FD","OQ_RQ","CQ_IR_PA","IR_PA","O","NF_OQ","FD_IR","CQ_PA","IR","PA_PF","CQ_FQ","IR_OQ","FD_FQ_NF","FQ_RQ","FQ_IR"]
-cm = confusion_matrix(Ytest, predicted, labels)
-print(cm)
-fig = plt.figure()
-ax = fig.add_subplot(111)
-cax = ax.matshow(cm)
-plt.title('Confusion matrix of the classifier')
-fig.colorbar(cax)
-ax.set_xticklabels([''] + labels)
-ax.set_yticklabels([''] + labels)
-ax.xaxis.set_major_locator(MultipleLocator(1))
-ax.yaxis.set_major_locator(MultipleLocator(1))
-plt.xlabel('Predicted')
-plt.ylabel('True')
-plt.show()
+# cm = confusion_matrix(Ytest, predicted, labels)
+# print(cm)
+# fig = plt.figure()
+# ax = fig.add_subplot(111)
+# cax = ax.matshow(cm)
+# plt.title('Confusion matrix of the classifier')
+# fig.colorbar(cax)
+# ax.set_xticklabels([''] + labels)
+# ax.set_yticklabels([''] + labels)
+# ax.xaxis.set_major_locator(MultipleLocator(1))
+# ax.yaxis.set_major_locator(MultipleLocator(1))
+# plt.xlabel('Predicted')
+# plt.ylabel('True')
+# plt.show()
 
 print("F1 score: \n" + str(f1_score(Ytest, predicted, average='macro')))
 
@@ -134,41 +133,41 @@ print("Precision: \n" + str(precision_score(Ytest, predicted2, average=None)))
 # print("Confusion matrix: \n" + str(confusion_matrix(Ytest, predicted2)))
 print("F1 score: \n" + str(f1_score(Ytest, predicted2, average='macro')))
 
-print("Confusion matrix: \n" + str(confusion_matrix(Ytest, predicted)))
-# helper.plot_confusion_matrix(Ytest, predicted, classes=helper.getLabelList(), title='Confusion matrix for SVM')
-labels = ["OQ","FD","PA","FD_FQ","FD_RQ","FD_PA","JK","NF","CQ_IR","FD_IR_PA","GG","FD_PF","PF","FQ","FD_OQ","FD_NF","CQ","RQ","CQ_FD","OQ_RQ","CQ_IR_PA","IR_PA","O","NF_OQ","FD_IR","CQ_PA","IR","PA_PF","CQ_FQ","IR_OQ","FD_FQ_NF","FQ_RQ","FQ_IR"]
-cm = confusion_matrix(Ytest, predicted2, labels)
-print(cm)
-fig = plt.figure()
-ax = fig.add_subplot(111)
-cax = ax.matshow(cm)
-plt.title('Confusion matrix of the classifier')
-fig.colorbar(cax)
-ax.set_xticklabels([''] + labels)
-ax.set_yticklabels([''] + labels)
-ax.xaxis.set_major_locator(MultipleLocator(1))
-ax.yaxis.set_major_locator(MultipleLocator(1))
-plt.xlabel('Predicted')
-plt.ylabel('True')
-plt.show()
-
-# importances = clf2.feature_importances_
-# std = np.std([tree.feature_importances_ for tree in clf2.estimators_],axis=0)
-# indices = np.argsort(importances)[::-1]
-
-# # Print the feature ranking
-# print("Feature ranking:")
-
-# for f in range(Xtrain.shape[1]):
-#     print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
-
-# # Plot the feature importances of the forest
-# plt.figure()
-# plt.title("Feature importances")
-# plt.bar(range(Xtrain.shape[1]), importances[indices],color="r", yerr=std[indices], align="center")
-# plt.xticks(range(Xtrain.shape[1]), indices)
-# plt.xlim([-1, Xtrain.shape[1]])
+# print("Confusion matrix: \n" + str(confusion_matrix(Ytest, predicted)))
+# # helper.plot_confusion_matrix(Ytest, predicted, classes=helper.getLabelList(), title='Confusion matrix for SVM')
+# labels = ["OQ","FD","PA","FD_FQ","FD_RQ","FD_PA","JK","NF","CQ_IR","FD_IR_PA","GG","FD_PF","PF","FQ","FD_OQ","FD_NF","CQ","RQ","CQ_FD","OQ_RQ","CQ_IR_PA","IR_PA","O","NF_OQ","FD_IR","CQ_PA","IR","PA_PF","CQ_FQ","IR_OQ","FD_FQ_NF","FQ_RQ","FQ_IR"]
+# cm = confusion_matrix(Ytest, predicted2, labels)
+# print(cm)
+# fig = plt.figure()
+# ax = fig.add_subplot(111)
+# cax = ax.matshow(cm)
+# plt.title('Confusion matrix of the classifier')
+# fig.colorbar(cax)
+# ax.set_xticklabels([''] + labels)
+# ax.set_yticklabels([''] + labels)
+# ax.xaxis.set_major_locator(MultipleLocator(1))
+# ax.yaxis.set_major_locator(MultipleLocator(1))
+# plt.xlabel('Predicted')
+# plt.ylabel('True')
 # plt.show()
+
+importances = clf2.feature_importances_
+std = np.std([tree.feature_importances_ for tree in clf2.estimators_],axis=0)
+indices = np.argsort(importances)[::-1]
+
+# Print the feature ranking
+print("Feature ranking:")
+
+for f in range(Xtrain.shape[1]):
+    print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
+
+# Plot the feature importances of the forest
+plt.figure()
+plt.title("Feature importances")
+plt.bar(range(Xtrain.shape[1]), importances[indices],color="r", yerr=std[indices], align="center")
+plt.xticks(range(Xtrain.shape[1]), indices)
+plt.xlim([-1, Xtrain.shape[1]])
+plt.show()
 
 
 # clf3 = LogisticRegression(random_state=0, solver='lbfgs', multi_class='multinomial')

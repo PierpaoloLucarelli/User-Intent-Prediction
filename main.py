@@ -5,7 +5,7 @@ import os
 import pickle
 
 # datafiles = ["train", "test"]
-datafiles = ["fuck"]
+datafiles = ["practice"]
 
 
 
