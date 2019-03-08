@@ -4,6 +4,7 @@ from sklearn.svm import SVC
 from matplotlib.ticker import MultipleLocator
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import multilabel_confusion_matrix
 from sklearn.metrics import precision_score
 from features import helper
 from sklearn.metrics import classification_report

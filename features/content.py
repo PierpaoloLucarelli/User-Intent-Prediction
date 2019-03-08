@@ -129,4 +129,7 @@ def feedback(utterances):
 		res.append(list(map(str, wh_vector)))
 	return res
 
+# def bagOfWords(utterances):
+# 	res = []
+
 

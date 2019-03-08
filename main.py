@@ -4,7 +4,8 @@ from features import tfidf
 import os
 import pickle
 
-datafiles = ["train", "test"]
+# datafiles = ["train", "test"]
+datafiles = ["fuck"]
 
 
 
@@ -16,8 +17,8 @@ for i, f in enumerate(datafiles):
 	k = 0
 	# tfidf.create_vectorizer('data/'+datafiles[i]+'.tsv', datafiles[i])
 	# with open(datafiles[i]+'.pkl','rb') as f:
-	tfidf_init = tfidf.calculate_similarities_init(datafiles[i])
-	tfidf_dialog = tfidf.calculate_similarities_dialog(datafiles[i])
+	# tfidf_init = tfidf.calculate_similarities_init(datafiles[i])
+	# tfidf_dialog = tfidf.calculate_similarities_dialog(datafiles[i])
 	with open("./data/"+datafiles[i]+".tsv") as conversations:
 		if os.path.exists("./data/"+datafiles[i]+"_feat.csv"):
 			os.remove("./data/"+datafiles[i]+"_feat.csv")
@@ -44,7 +45,7 @@ for i, f in enumerate(datafiles):
 				unique_words = content.numberOfUniqueWords(utterances)
 				feedback = content.feedback(utterances)
 
-
+				print("fuck")
 				# write features to file
 				with open("./data/"+datafiles[i]+"_feat.csv", "a") as fout:
 					# l = helper.label_to_int(labels)
@@ -63,8 +64,8 @@ for i, f in enumerate(datafiles):
 							str(thanks[i]) + ", " + 
 							str(n_words[i]) + ", " +
 							str(unique_words[i]) + ", " +
-							str(tfidf_init[k]) + ", " +
-							str(tfidf_dialog[k]) + ", " +
+							# str(tfidf_init[k]) + ", " +
+							# str(tfidf_dialog[k]) + ", " +
 							", ".join(feedback[i]) + ", " +
 							str(ex[i]) + 
 							"\n"
