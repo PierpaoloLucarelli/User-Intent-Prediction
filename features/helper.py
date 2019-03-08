@@ -81,3 +81,35 @@ def plot_confusion_matrix(y_true, y_pred, classes,
 					color="white" if cm[i, j] > thresh else "black")
 	fig.tight_layout()
 	return ax
+
+
+def genMultiLabel(_type):
+	with open("labels2.csv") as file:
+		labelList = []
+		for line in file:
+			labelList = line.strip().split(',')
+		labels = []
+		with open("./data/"+_type+".tsv") as conversations:
+			for line in conversations:
+				tokens = line.strip().split('\t')
+				if(tokens[0] != ""):
+					labels.append(tokens[0])
+			vectorizedLabels = [[False]*len(labelList)]*len(labels)
+			for i, l in enumerate(labels):
+				vectorizedLabels[i] = label2Vector(labelList, l)
+		return vectorizedLabels
+
+def label2Vector(labelList, label):
+	ls = label.split("_")
+	vectorLabel = [False]*len(labelList)
+	for i, l in enumerate(ls):
+		for j, ll in enumerate(labelList):
+			if(l == ll):
+				vectorLabel[j] = True
+	return vectorLabel
+
+
+
+
+
+

@@ -1,7 +1,7 @@
 from __future__ import print_function
 from sklearn import svm
 from sklearn.svm import SVC
-from matplotlib.ticker import MultipleLocator; 
+from matplotlib.ticker import MultipleLocator
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_score
@@ -63,10 +63,10 @@ Xtest = np.array(Xtest).astype(np.float)
 
 # SVM
 
-tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-3, 1e-4],
-                     'C': [1, 10, 100, 1000]}]
+# tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-3, 1e-4],
+#                      'C': [1, 10, 100, 1000]}]
 
-scores = ['recall']
+# scores = ['recall']
 
 # for score in scores:
 #     print("# Tuning hyper-parameters for %s" % score)
