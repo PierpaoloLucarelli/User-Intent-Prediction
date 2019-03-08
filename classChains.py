@@ -7,6 +7,8 @@ from sklearn.multioutput import ClassifierChain
 from sklearn.metrics import jaccard_similarity_score
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import average_precision_score
+from sklearn.decomposition import PCA
+from sklearn.model_selection import cross_val_score
 from sklearn.ensemble import RandomForestClassifier
 
 testfile = "./data/test_feat.csv"
@@ -45,9 +47,16 @@ Ytest  = helper.genMultiLabel("test")
 Ytrain = np.array(Ytrain).astype(np.bool)
 Ytest = np.array(Ytest).astype(np.bool)
 
+# pca = PCA(n_components=0.99)
+# pca.fit(Xtrain)
+# Xtest = pca.transform(Xtest) 
+# Xtrain = pca.transform(Xtrain) 
+# print(Xtest)
+# print(pca.components_[0])
+# print(np.where(pca.components_[0] == max(pca.components_[0])))
 
-# base_svc = LogisticRegression(solver='lbfgs')
-base_svc = RandomForestClassifier(n_estimators=100, max_depth=10, random_state=3)
+base_svc = LogisticRegression(solver='lbfgs')
+# base_svc = RandomForestClassifier(n_estimators=100, max_depth=10, random_state=3)
 # base_svc = SVC( kernel='rbf', gamma=1e-3, C=100, verbose=True)
 ovr = OneVsRestClassifier(base_svc)
 ovr.fit(Xtrain, Ytrain)
@@ -72,4 +81,3 @@ print("Jaccard: " + str(ensemble_jaccard_score))
 # binY = np.where(Y_pred_ensemble>0.5, 1, 0)
 # print(binY)
 print("Accuracy: " + str(average_precision_score(Ytest, Y_pred_ensemble)))
-
